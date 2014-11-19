@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	 version="2.4">
+    
+    <!--
+      - Location of the XML file that defines the root application context.
+      - Applied by ContextLoaderServlet.
+            -
+            - Can be set to "/WEB-INF/applicationContext-hibernate.xml" for the Hibernate
+            - implementation, "/WEB-INF/applicationContext-ojb.xml" for the Apache OJB one,
+            - "/WEB-INF/applicationContext-toplink.xml" for the Oracle TopLink one,
+            - or "/WEB-INF/applicationContext-jdbc.xml" for the JDBC one.
+      -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/config/spring/applicationContext.xml</param-value>
+            <!--
+            <param-value>/WEB-INF/applicationContext-hibernate.xml</param-value>
+            <param-value>/WEB-INF/applicationContext-ojb.xml</param-value>
+            <param-value>/WEB-INF/applicationContext-toplink.xml</param-value>
+            -->
+    </context-param>
+   
+    <!--
+	  - Key of the system property that should specify the root directory of this
+	  - web app. Applied by WebAppRootListener or Log4jConfigListener.
+	  -->
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>itp.root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.properties</param-value>
+    </context-param>
+    <filter>
+        <filter-name>OpenViewInSessionFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+        <init-param>
+            <param-name>singleSession</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>sessionFactoryBeanName</param-name>
+            <param-value>aaaSessionFactory</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>OpenViewInSessionFilter</filter-name>
+        <url-pattern>/services/*</url-pattern>
+    </filter-mapping>    
+    <!--
+      - Loads the root application context of this web app at startup,
+      - by default from "/WEB-INF/applicationContext.xml".
+            - Note that you need to fall back to Spring's ContextLoaderServlet for
+            - J2EE servers that do not follow the Servlet 2.4 initialization order.
+            -
+      - Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
+      - to access it anywhere in the web application, outside of the framework.
+      -
+      - The root context is the parent of all servlet-specific contexts.
+      - This means that its beans are automatically available in these child contexts,
+      - both for getBean(name) calls and (external) bean references.
+      -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!--
+      - Configures Log4J for this web app.
+      - As this context specifies a context-param "log4jConfigLocation", its file path
+      - is used to load the Log4J configuration, including periodic refresh checks.
+      -
+      - Would fall back to default Log4J initialization (non-refreshing) if no special
+      - context-params are given.
+      -
+      - Exports a "web app root key", i.e. a system property that specifies the root
+      - directory of this web app, for usage in log file paths.
+      - This web app specifies "petclinic.root" (see log4j.properties file).
+      -->
+    <!-- Leave the listener commented-out if using JBoss -->
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>
+            com.itp.servlet.listener.ApplicationConfigContextListener
+        </listener-class>
+    </listener>
+   
+   <!-- STRUTS CONFIG -->
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/classes/config/struts/struts-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>detail</param-name>
+            <param-value>2</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- JSPC servlet mappings start -->
+
+    <servlet>
+        <servlet-name>com.itp.jsp.index_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.index_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.index_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005fdetails_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005fdetails_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005flist_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005flist_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005fnew_005frequest_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005fnew_005frequest_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fasset_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fasset_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fcategory_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fcategory_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fcomponent_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fcomponent_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fversion_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fversion_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005flist_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005flist_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fmembers_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.project.project_005fmembers_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.layout.basicLayout_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.layout.basicLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.layout.popupLayout_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.layout.popupLayout_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.dashboard.dashBoard_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.dashboard.dashBoard_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.dashboard.dashBoard_005f1_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.dashboard.dashBoard_005f1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.footer_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.common.footer_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.header_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.common.header_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.menu_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.common.menu_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.message_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.common.message_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.admin_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.admin_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.permission_005fsettings_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.permission_005fsettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.priority_005fsettings_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.priority_005fsettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.project_005fstatus_005fsettings_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.project_005fstatus_005fsettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.role_005fsettings_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.role_005fsettings_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.userPicker_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.userPicker_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.users_jsp</servlet-name>
+        <servlet-class>com.itp.jsp.WEB_002dINF.jsp.admin.users_jsp</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.index_jsp</servlet-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.index_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/index.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005fdetails_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/ticket/ticket_details.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005flist_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/ticket/ticket_list.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.ticket.ticket_005fnew_005frequest_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/ticket/ticket_new_request.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_form.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fasset_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_form_asset.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fcategory_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_form_category.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fcomponent_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_form_component.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fform_005fversion_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_form_version.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005flist_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_list.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.project.project_005fmembers_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/project/project_members.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.layout.basicLayout_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/layout/basicLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.layout.popupLayout_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/layout/popupLayout.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.dashboard.dashBoard_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/dashboard/dashBoard.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.dashboard.dashBoard_005f1_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/dashboard/dashBoard_1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.footer_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/common/footer.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.header_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/common/header.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.menu_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/common/menu.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.common.message_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/common/message.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.admin_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/admin.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.permission_005fsettings_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/permission_settings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.priority_005fsettings_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/priority_settings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.project_005fstatus_005fsettings_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/project_status_settings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.role_005fsettings_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/role_settings.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.userPicker_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/userPicker.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>com.itp.jsp.WEB_002dINF.jsp.admin.users_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/admin/users.jsp</url-pattern>
+    </servlet-mapping>
+
+<!-- JSPC servlet mappings end -->
+
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    <taglib>
+        <taglib-uri>/tags/struts-bean</taglib-uri>
+        <taglib-location>/WEB-INF/tld/struts-bean.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>/tags/struts-html</taglib-uri>
+        <taglib-location>/WEB-INF/tld/struts-html.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>/tags/struts-logic</taglib-uri>
+        <taglib-location>/WEB-INF/tld/struts-logic.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>/tags/struts-nested</taglib-uri>
+        <taglib-location>/WEB-INF/tld/struts-nested.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>/tags/struts-tiles</taglib-uri>
+        <taglib-location>/WEB-INF/tld/struts-tiles.tld</taglib-location>
+    </taglib>
+    <taglib>
+        <taglib-uri>/tags/ajax</taglib-uri>
+        <taglib-location>/WEB-INF/tld/ajaxtags.tld</taglib-location>
+    </taglib>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>
+            index.jsp
+        </welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/WEB-INF/jsp/error/uncaughtException.jsp</location>
+    </error-page>
+    <auth-constraint>
+        <description>
+               only these types of users may use the system
+        </description>
+        <role-name>administrator</role-name>
+        <role-name>employee</role-name>
+    </auth-constraint>
+    <!-- GENERATED JSP MAPPINGS -->
+</web-app>

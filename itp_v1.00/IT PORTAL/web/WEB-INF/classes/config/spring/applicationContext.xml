@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for JPetStore's business layer.
+  - Contains bean references to the transaction manager and to the DAOs in
+  - dataAccessContext-local/jta.xml (see web.xml's "contextConfigLocation").
+  -->
+<beans>
+
+        <!-- ========================= PROPERTY DEFINITIONS ========================= -->
+        
+        <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	<!--
+        <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/jdbc.properties"/>
+	</bean>
+        -->
+        
+        <!-- ========================= DATASOURCE DEFINITIONS ========================= -->
+    <bean id="aaaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/aaa"/>
+    </bean>
+        
+        <!--
+        <bean id="aaaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+        -->
+         <!-- ========================= SESSION FACTORY DEFINITIONS ========================= -->
+    <bean id="abstractSessionFactoryHost" abstract="true">
+        <property name="sessionFactory">
+            <ref bean="aaaSessionFactory"/>
+        </property>
+    </bean>
+        
+        <!-- ========================= HIBERNATE SESSION DEFINITIONS ========================= -->
+    <bean id="aaaSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="aaaDataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>com/itp/dao/entity/Asset.hbm.xml</value>
+                <value>com/itp/dao/entity/Company.hbm.xml</value>
+                <value>com/itp/dao/entity/Component.hbm.xml</value>
+                <value>com/itp/dao/entity/Configuration.hbm.xml</value>
+                <value>com/itp/dao/entity/ConfigurationCategory.hbm.xml</value>
+                <value>com/itp/dao/entity/FileRecord.hbm.xml</value>
+                <value>com/itp/dao/entity/FileRecordType.hbm.xml</value>
+                <value>com/itp/dao/entity/ItpComponent.hbm.xml</value>
+                <value>com/itp/dao/entity/Month.hbm.xml</value>
+                <value>com/itp/dao/entity/Note.hbm.xml</value>
+                <value>com/itp/dao/entity/NoteAttachement.hbm.xml</value>
+                <value>com/itp/dao/entity/NoteType.hbm.xml</value>
+                <value>com/itp/dao/entity/Participant.hbm.xml</value>
+                <value>com/itp/dao/entity/Permission.hbm.xml</value>
+                <value>com/itp/dao/entity/Priority.hbm.xml</value>
+                <value>com/itp/dao/entity/Project.hbm.xml</value>
+                <value>com/itp/dao/entity/ProjectCategory.hbm.xml</value>
+                <value>com/itp/dao/entity/ProjectStatus.hbm.xml</value>
+                <value>com/itp/dao/entity/Role.hbm.xml</value>
+                <value>com/itp/dao/entity/Session.hbm.xml</value>
+                <value>com/itp/dao/entity/SessionStatus.hbm.xml</value>
+                <value>com/itp/dao/entity/State.hbm.xml</value>
+                <value>com/itp/dao/entity/TicketAction.hbm.xml</value>
+                <value>com/itp/dao/entity/TicketAttachement.hbm.xml</value>
+                <value>com/itp/dao/entity/TicketDetails.hbm.xml</value>
+                <value>com/itp/dao/entity/TicketHeader.hbm.xml</value>
+                <value>com/itp/dao/entity/User.hbm.xml</value>
+                <value>com/itp/dao/entity/Version.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.show_sql">false
+                </prop>
+                <prop key="hibernate.jdbc.batch_size">500
+                </prop>
+            </props>
+        </property>
+    </bean>
+       
+        <!-- =========================== THE HIBERNATE INTERCEPTOR ==============================-->
+    <bean id="hibernateInterceptor"
+            class="org.springframework.orm.hibernate3.HibernateInterceptor" parent="abstractSessionFactoryHost" >
+    </bean>
+        
+        <!-- ========================= HIBERNATE TRANSACTION MANAGER ========================= -->
+    <bean id="hibernateTransactionManager"
+            class="org.springframework.orm.hibernate3.HibernateTransactionManager" parent="abstractSessionFactoryHost">
+    </bean>
+
+        <!-- ========================= DAO DEFINITIONS ========================= -->
+    <bean id="commonDataDao" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.itp.dao.CommonDataDao</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>hibernateInterceptor</value>
+                <value>commonDataDaoTarget</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="configurationDao" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.itp.dao.ConfigurationDao</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>hibernateInterceptor</value>
+                <value>configurationDaoTarget</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="projectDaoInterface" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.itp.dao.ProjectDao</value>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>hibernateInterceptor</value>
+                <value>projectDaoTarget</value>
+            </list>
+        </property>
+    </bean>
+        
+        <!-- ========================= TRANSACTION BASED DAO DEFINITIONS =================================== -->
+    <bean id="projectDao" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="hibernateTransactionManager"/>
+        <property name="target" ref="projectDaoInterface"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="saveOrUpdateProject">PROPAGATION_REQUIRED
+                </prop>
+                <prop key="saveProject">PROPAGATION_REQUIRED
+                </prop>
+            </props>
+        </property>
+    </bean>
+        
+         <!-- ========================= DAO TARGET DEFINITIONS ========================= -->
+    <bean id="commonDataDaoTarget" class="com.itp.spring.dao.hibernate.HibernateCommonDataDaoImpl" parent="abstractSessionFactoryHost" />
+    <bean id="configurationDaoTarget" class="com.itp.spring.dao.hibernate.HibernateConfigurationDaoImpl" parent="abstractSessionFactoryHost" />
+    <bean id="projectDaoTarget" class="com.itp.spring.dao.hibernate.HibernateProjectDaoImpl" parent="abstractSessionFactoryHost" />
+    <!-- ========================= TRANSACTION BASED SERVICE DEFINITIONS =================================== -->
+        <!--
+        <bean id="name" class="class">
+            <property name="transactionManager" ref="hibernateTransactionManager"/>
+            <property name="target" ref="ref"/>
+            <property name="transactionAttributes">
+              <props>
+                <prop key="functionName">PROPAGATION_REQUIRED</prop>
+              </props>
+            </property>
+        </bean>
+        -->
+        
+         <!-- ========================= SERVICE INTERFACE DEFINITIONS =================================== -->
+        <!-- You can change other service names, but this service MUST keep same name -->
+        <!-- If you change the names of other services just make sure the properties implementation being used is updated -->
+    <bean id="commonDataService" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.itp.services.CommonDataServiceFacade</value>
+        </property>
+        <property name="target">
+            <ref local="commonDataServiceTarget"/>
+        </property>
+    </bean>
+    <bean id="configurationService" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.itp.services.ConfigurationServiceFacade</value>
+        </property>
+        <property name="target">
+            <ref local="configurationServiceTarget"/>
+        </property>
+    </bean>
+    <bean id="projectManagementService" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.itp.services.ProjectManagementServiceFacade</value>
+        </property>
+        <property name="target">
+            <ref local="projectServiceTarget"/>
+        </property>
+    </bean>
+         <!-- ========================= SERVICES TARGET DEFINITIONS ========================= -->
+    <bean id="commonDataServiceTarget" class="com.itp.services.impl.CommonDataServiceImpl">
+        <property name="commonDataDao" ref="commonDataDao"/>
+    </bean>
+    <bean id="configurationServiceTarget" class="com.itp.services.impl.ConfigurationServiceImpl">
+        <property name="configurationDao" ref="configurationDao" />
+    </bean>
+    <bean id="projectServiceTarget" class="com.itp.services.impl.ProjectManagementServiceImpl">
+        <property name="projectDao" ref="projectDao" />
+    </bean>
+         <!-- ====================== STRUTS ACTION DEFINITIONS/CONFIGURATIONS ========================= -->
+    <bean name="/actions/createProject" class="com.itp.struts.action.project.ProjectManagementAction">
+        <property name="commonDataService">
+            <ref local="commonDataService"/>
+        </property>
+        <property name="projectManagementService">
+            <ref local="projectManagementService"/>
+        </property>
+    </bean>
+    <bean name="/actions/addMemberOnProject" class="com.itp.struts.action.project.AddMemberOnProjectAction">
+        <property name="commonDataService">
+            <ref local="commonDataService"/>
+        </property>
+    </bean>
+    <bean name="/actions/projectList" class="com.itp.struts.action.project.ListProjectAction">
+        <property name="projectManagementService">
+            <ref local="projectManagementService"/>
+        </property>
+    </bean>
+    <bean name="/actions/projectInfo" class="com.itp.struts.action.project.GetProjectAction">
+        <property name="commonDataService">
+            <ref local="commonDataService"/>
+        </property>
+        <property name="projectManagementService">
+            <ref local="projectManagementService"/>
+        </property>
+    </bean>
+</beans>

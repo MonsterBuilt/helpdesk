@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.FileRecord" table="file_record">
+    <id name="fileRecordId" type="java.lang.Integer">
+      <column name="file_record_id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.itp.dao.entity.FileRecordType" fetch="select" name="fileRecordType">
+      <column name="file_record_type_id"/>
+    </many-to-one>
+    <property name="fileName" type="string">
+      <column length="128" name="file_name"/>
+    </property>
+    <property name="data" type="binary">
+      <column name="data"/>
+    </property>
+    <property name="webFileType" type="string">
+      <column length="32" name="web_file_type"/>
+    </property>
+    <property name="dateTimeCreated" type="timestamp">
+      <column length="19" name="date_time_created" not-null="true"/>
+    </property>
+    <property name="dateTimeUpdated" type="timestamp">
+      <column length="19" name="date_time_updated" not-null="true"/>
+    </property>
+    <property name="fileByteSize" type="long">
+      <column name="file_byte_size" not-null="true"/>
+    </property>
+    <set inverse="true" name="noteAttachements">
+      <key>
+        <column name="file_record_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.NoteAttachement"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+
+<!--
+     This is a blank Tiles definition file with a commented example.
+-->
+<tiles-definitions>
+    <definition name="BasicLayout" path="/WEB-INF/jsp/layout/basicLayout.jsp">
+        <put name="menu" value="/WEB-INF/jsp/common/menu.jsp" />
+        <put name="footer"   value="/WEB-INF/jsp/common/footer.jsp" />
+    </definition>
+    <definition name="mainLayout"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project.jsp" />
+    </definition>
+    <definition name="projectInfoTileDef"  extends="BasicLayout">
+        <put name="body"   value="projectInfoWithMessageDef" />
+    </definition>
+    <definition name="projectInfoWithMessageDef"  path="/WEB-INF/jsp/project/project.jsp">
+        <put name="applicationMessage"   value="/WEB-INF/jsp/common/message.jsp" />
+    </definition>
+    <definition name="projectCatTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project_form_category.jsp" />
+    </definition>
+    <definition name="createProjectAssetTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project_form_asset.jsp" />
+    </definition>
+    <definition name="projectListTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project_list.jsp" />
+    </definition>
+    <definition name="createProjectTileDef"  extends="BasicLayout">
+        <put name="body"   value="createProjectTileWithMessageDef" />
+    </definition>
+    <definition name="createProjectTileWithMessageDef" path="/WEB-INF/jsp/project/project_form.jsp">
+        <put name="applicationMessage"   value="/WEB-INF/jsp/common/message.jsp" />
+        <put name="projectMembers"   value="/WEB-INF/jsp/project/project_members.jsp" />
+    </definition>
+    <definition name="createProjectComponentTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project_form_component.jsp" />
+    </definition>
+    <definition name="createProjectVersionTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project_form_version.jsp" />
+    </definition>
+    <definition name="projectCategoryTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/project/project_form_category.jsp" />
+    </definition>
+    <definition name="dashBoards"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/dashboard/dashBoard.jsp" />
+    </definition>
+    
+    <!-- admin -->
+    <definition name="permissionSettingsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/admin/permission_settings.jsp" />
+    </definition>
+    <definition name="userRoleSettingsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/admin/role_settings.jsp" />
+    </definition>
+    <definition name="userAccountsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/admin/users.jsp" />
+    </definition>
+    <definition name="prioritySettingsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/admin/priority_settings.jsp" />
+    </definition>
+    <definition name="projectStatusSettingsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/admin/project_status_settings.jsp" />
+    </definition>
+    <definition name="ticketsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/ticket/ticket_list.jsp" />
+    </definition>
+    <definition name="requestTicketTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/ticket/ticket_new_request.jsp" />
+    </definition>
+    <definition name="ticketsDetailsTileDef"  extends="BasicLayout">
+        <put name="body"   value="/WEB-INF/jsp/ticket/ticket_details.jsp" />
+    </definition>
+    <definition name="userPickerDef" path="/WEB-INF/jsp/layout/popupLayout.jsp" >
+        <put name="content" value="/WEB-INF/jsp/admin/userPicker.jsp"/>
+    </definition>
+    <!-- sample tiles definitions
+    <definition name=".mainLayout" path="/common/layouts/classicLayout.jsp">
+        <put name="title"  value="Sample Page Title" />
+        <put name="header" value="/common/header.jsp" />
+        <put name="menu"   value=".mainMenu" />
+        <put name="footer" value="/common/footer.jsp" />
+        <put name="body"   value=".portal.body" />
+    </definition>
+
+    <definition name=".mainMenu" path="/common/layouts/vboxLayout.jsp" >
+        <putList name="list" >
+            <add value=".menu.links" />
+            <add value=".menu.taglib.references" />
+            <add value=".menu.printer.friendly" />
+            <add value=".menu.old.documents" />
+      </putList>
+    </definition>
+
+    <definition name="aPage" extends=".mainLayout">
+        <put name="title"  value="Another Title" />
+        <put name="body"   value=".aPage.body" />
+    </definition>
+
+    end samples -->
+    <definition name="${YOUR_DEFINITION_HERE}">
+    </definition>
+</tiles-definitions>

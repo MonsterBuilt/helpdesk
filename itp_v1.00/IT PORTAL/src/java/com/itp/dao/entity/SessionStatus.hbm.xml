@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.SessionStatus" table="session_status">
+    <id name="sessionStatusId" type="java.lang.Integer">
+      <column name="session_status_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="sessionStatusName" type="string">
+      <column length="128" name="session_status_name" not-null="true"/>
+    </property>
+    <property name="sessionStatusDescription" type="string">
+      <column name="session_status_description" not-null="true"/>
+    </property>
+    <set inverse="true" name="sessions">
+      <key>
+        <column name="session_status_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Session"/>
+    </set>
+  </class>
+</hibernate-mapping>

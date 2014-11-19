@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.TicketAction" table="ticket_action">
+    <id name="ticketAction" type="java.lang.Integer">
+      <column name="ticket_action"/>
+      <generator class="identity"/>
+    </id>
+    <property name="ticketActionName" type="string">
+      <column length="45" name="ticket_action_name" not-null="true"/>
+    </property>
+    <property name="ticketActionDescription" type="string">
+      <column name="ticket_action_description"/>
+    </property>
+  </class>
+</hibernate-mapping>

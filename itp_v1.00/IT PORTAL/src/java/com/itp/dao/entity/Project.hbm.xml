@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class lazy="false" name="com.itp.dao.entity.Project" table="project">
+    <id name="projectId" type="int">
+      <column name="project_id"/>
+      <generator class="native"/>
+    </id>
+    <many-to-one class="com.itp.dao.entity.ProjectStatus" lazy="false" name="projectStatus">
+      <column name="status_id" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.itp.dao.entity.ProjectCategory" lazy="false" name="projectCategory">
+      <column name="project_category_id" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.itp.dao.entity.Company" lazy="false" name="company">
+      <column name="company_id" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.itp.dao.entity.User" lazy="false" name="user">
+      <column length="32" name="project_lead_id" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.itp.dao.entity.Priority" lazy="false" name="priority">
+      <column name="priority_id" not-null="true"/>
+    </many-to-one>
+    <property name="projectName" type="string">
+      <column length="128" name="project_name"/>
+    </property>
+    <property name="projectDescription" type="string">
+      <column name="project_description"/>
+    </property>
+    <property name="startDate" type="date">
+      <column length="10" name="start_date" not-null="true"/>
+    </property>
+    <property name="endDate" type="date">
+      <column length="10" name="end_date" not-null="true"/>
+    </property>
+    <property name="estimatedHours" type="int">
+      <column name="estimated_hours" not-null="true"/>
+    </property>
+    <property name="budget" type="java.lang.Double">
+      <column name="budget" precision="22" scale="0"/>
+    </property>
+    <property name="currentCost" type="java.lang.Double">
+      <column name="current_cost" precision="22" scale="0"/>
+    </property>
+    <property name="assetId" type="int">
+      <column name="asset_id" not-null="true"/>
+    </property>
+    <set inverse="true" lazy="false" name="participants">
+      <key>
+        <column name="project_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Participant"/>
+    </set>
+    <set inverse="true" lazy="false" name="notes">
+      <key>
+        <column name="project_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Note"/>
+    </set>
+    <set inverse="true" lazy="false" name="versions">
+      <key>
+        <column name="project_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Version"/>
+    </set>
+    <set inverse="true" lazy="false" name="assets">
+      <key>
+        <column name="project_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Asset"/>
+    </set>
+  </class>
+</hibernate-mapping>

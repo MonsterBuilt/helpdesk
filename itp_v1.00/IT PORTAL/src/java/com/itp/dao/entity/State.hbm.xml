@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.State" table="state">
+    <id name="stateCode" type="string">
+      <column length="2" name="state_code"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="stateName" type="string">
+      <column length="128" name="state_name"/>
+    </property>
+  </class>
+</hibernate-mapping>

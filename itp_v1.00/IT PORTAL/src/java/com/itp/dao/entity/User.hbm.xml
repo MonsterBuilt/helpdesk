@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.User" table="user">
+    <id name="username" type="string">
+      <column length="32" name="username"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="password" type="string">
+      <column length="32" name="password" not-null="true"/>
+    </property>
+    <property name="firstName" type="string">
+      <column length="64" name="first_name"/>
+    </property>
+    <property name="middleName" type="string">
+      <column length="64" name="middle_name"/>
+    </property>
+    <property name="lastName" type="string">
+      <column length="64" name="last_name"/>
+    </property>
+    <property name="email" type="string">
+      <column length="64" name="email"/>
+    </property>
+    <property name="phoneNumber" type="string">
+      <column length="16" name="phone_number"/>
+    </property>
+    <property name="mobileNumber" type="string">
+      <column length="16" name="mobile_number"/>
+    </property>
+    <!--<set inverse="true" name="participants">
+      <key>
+        <column length="32" name="username" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Participant"/>
+    </set>
+    <set inverse="true" name="projects">
+      <key>
+        <column length="32" name="project_lead_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Project"/>
+    </set>
+    <set inverse="true" name="notes">
+      <key>
+        <column length="32" name="assignee" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Note"/>
+    </set>-->
+  </class>
+</hibernate-mapping>

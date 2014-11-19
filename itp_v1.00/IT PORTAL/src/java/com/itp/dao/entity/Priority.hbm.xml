@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.Priority" table="priority">
+    <id name="priorityId" type="java.lang.Integer">
+      <column name="priority_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="priorityName" type="string">
+      <column length="128" name="priority_name"/>
+    </property>
+    <property name="priorityDescription" type="string">
+      <column name="priority_description" not-null="true"/>
+    </property>
+    <property name="priorityOrder" type="int">
+      <column name="priority_order" not-null="true"/>
+    </property>
+    <property name="iconFilename" type="string">
+      <column name="icon_filename"/>
+    </property>
+    <set inverse="true" name="projects">
+      <key>
+        <column name="priority_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Project"/>
+    </set>
+    <set inverse="true" name="notes">
+      <key>
+        <column name="priority_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Note"/>
+    </set>
+  </class>
+</hibernate-mapping>

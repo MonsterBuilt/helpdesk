@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.TicketDetails" table="ticket_details">
+    <id name="ticketDetailsId" type="java.lang.Integer">
+      <column name="ticket_details_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="ticketResponese" type="string">
+      <column name="ticket_responese" not-null="true"/>
+    </property>
+    <property name="responseDateTime" type="timestamp">
+      <column length="19" name="response_date_time" not-null="true"/>
+    </property>
+    <property name="username" type="string">
+      <column length="45" name="username" not-null="true"/>
+    </property>
+    <property name="isReceivedResponse" type="int">
+      <column name="is_received_response" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>

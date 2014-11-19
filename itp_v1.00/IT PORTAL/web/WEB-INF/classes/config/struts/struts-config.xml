@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+
+<!-- ================================================ Form Bean Definitions -->
+    <form-beans>
+        <form-bean name="projectForm" type="com.itp.struts.form.ProjectFormBean" />
+        <form-bean name="listProjectForm" type="com.itp.struts.form.ListProjectFormBean" />
+        <form-bean name="userForm" type="com.itp.struts.form.UserFormBean" />
+    </form-beans>
+
+
+<!-- ========================================= Global Exception Definitions -->
+    <global-exceptions>
+    </global-exceptions>
+
+
+<!-- =========================================== Global Forward Definitions -->
+    <global-forwards type="org.apache.struts.action.ActionForward">
+    </global-forwards>
+
+
+<!-- =========================================== Action Mapping Definitions -->
+    <action-mappings>
+        <action path="/actions/Welcome" forward="mainLayout"/>
+        <action path="/actions/projectCat" forward="projectCatTileDef"/>
+        <action path="/actions/createProjectAsset" forward="createProjectAssetTileDef"/>
+        <action path="/actions/getCreateProject"  
+                type="org.springframework.web.struts.DelegatingActionProxy" >
+            <forward name="success" path="createProjectTileDef"/>
+        </action>
+        <action path="/actions/createProject"  
+                 validate="false"
+                 scope="request"
+                 name="projectForm"
+                 input="createProjectTileDef"
+                 type="org.springframework.web.struts.DelegatingActionProxy" >
+            <forward name="create_project_failed" 
+                     path="createProjectTileDef"/>
+            <forward name="create_project_success" 
+                     path="/actions/projectInfo.do"/>
+            <forward name="get_create_project_page" 
+                     path="createProjectTileDef"/>
+        </action>
+        <action path="/actions/addMemberOnProject"  
+                 validate="false"
+                 name="userForm"
+                 type="org.springframework.web.struts.DelegatingActionProxy" >
+            <forward name="get_user_picker" 
+                     path="userPickerDef"/>
+            <forward name="add_user_to_project" 
+                     path="/WEB-INF/jsp/project/project_members.jsp"/>
+        </action>
+        <action path="/actions/projectList"  
+                 validate="false"
+                 name="listProjectForm"
+                 type="org.springframework.web.struts.DelegatingActionProxy" >
+            <forward name="success" 
+                     path="projectListTileDef"/>
+        </action>
+         <action path="/actions/projectInfo"  
+                 validate="false"
+                 name="projectForm"
+                 type="org.springframework.web.struts.DelegatingActionProxy" >
+            <forward name="success" 
+                     path="projectInfoTileDef"/>
+        </action>
+        <action path="/actions/projectCategory" forward="projectCategoryTileDef"/>
+        <action path="/actions/createProjectComponent" forward="createProjectComponentTileDef"/>
+        <action path="/actions/createProjectVersion" forward="createProjectVersionTileDef"/>
+        <action path="/actions/dashBoard" forward="dashBoards"/>
+        <action path="/actions/permissions" forward="permissionSettingsTileDef"/>
+        <action path="/actions/userRoles" forward="userRoleSettingsTileDef"/>
+        <action path="/actions/users" forward="userAccountsTileDef"/>
+        <action path="/actions/prioritySet" forward="prioritySettingsTileDef"/>
+        <action path="/actions/statusSet" forward="projectStatusSettingsTileDef"/>
+        <action path="/actions/ticket" forward="ticketsTileDef"/>
+        <action path="/actions/requestTicket" forward="requestTicketTileDef"/>
+        <action path="/actions/ticketDtls" forward="ticketsDetailsTileDef"/>
+    </action-mappings>
+
+
+<!-- ============================================= Controller Configuration -->
+    <controller>
+                <!-- <set-property  property="processorClass" value="org.apache.struts.tiles.TilesRequestProcessor"/> -->
+        <set-property  property="processorClass" value="com.itp.struts.RoleBasedTilesRequestProcessor"/>
+                <!-- <set-property  property="nocache" value="true"/> -->
+    </controller>
+
+
+<!-- ======================================== Message Resources Definitions -->
+    <message-resources parameter="resources.MessageResources" />
+
+
+<!-- =============================================== Plug Ins Configuration -->
+
+  <!-- ======================================================= Tiles plugin -->
+  <!--
+     This plugin initialize Tiles definition factory. This later can takes some
+	 parameters explained here after. The plugin first read parameters from
+	 web.xml, thenoverload them with parameters defined here. All parameters
+	 are optional.
+     The plugin should be declared in each struts-config file.
+       - definitions-config: (optional)
+            Specify configuration file names. There can be several comma
+		    separated file names (default: ?? )
+       - moduleAware: (optional - struts1.1)
+            Specify if the Tiles definition factory is module aware. If true
+            (default), there will be one factory for each Struts module.
+			If false, there will be one common factory for all module. In this
+            later case, it is still needed to declare one plugin per module.
+            The factory will be initialized with parameters found in the first
+            initialized plugin (generally the one associated with the default
+            module).
+			  true : One factory per module. (default)
+			  false : one single shared factory for all modules
+	   - definitions-parser-validate: (optional)
+	        Specify if xml parser should validate the Tiles configuration file.
+			  true : validate. DTD should be specified in file header (default)
+			  false : no validation
+
+	  Paths found in Tiles definitions are relative to the main context.
+  -->
+    <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+
+      <!-- Path to XML definition file -->
+        <set-property property="definitions-config"
+                       value="/WEB-INF/classes/config/struts/tiles-defs.xml" />
+      <!-- Set Module-awareness to true -->
+        <set-property property="moduleAware" value="true" />
+    </plug-in>
+  
+
+
+  <!-- =================================================== Validator plugin -->
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property
+        property="pathnames"
+        value="/WEB-INF/classes/config/struts/validator-rules.xml,/WEB-INF/classes/config/struts/validation.xml"/>
+    </plug-in>
+    <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+        <set-property
+        property="contextConfigLocation"
+        value="/WEB-INF/classes/config/spring/applicationContext.xml"/>
+    </plug-in>
+</struts-config>
+

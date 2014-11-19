@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IT PORTAL" default="all" basedir=".">
+
+    <property name="classpath" value="${basedir}\classpath\"/>
+    <property name="classpath2" value="${basedir}\web\WEB-INF\lib\"/>
+    
+    <property name="build.dir" value="${basedir}\build" />
+    <property name="src" value="${basedir}\src\java" />
+    <property name="jsp.src" value="${basedir}\src\jsp" />
+    <property name="war.dir" value="${build.dir}\war" />
+    <property name="conf.dir" value="${basedir}\src\conf" />
+    <property name="resources.dir" value="${basedir}\src\resources" />
+    
+   
+    
+    <property name="local.tomcat" value="c:\Program Files\Apache Software Foundation\Tomcat 5.5" />
+    <property name="local.tomcat.webapps" value="${local.tomcat}\webapps" />
+    <property name="local.tomcat.classpath" value="${local.tomcat}\common\lib" />
+    
+    <property name="context" value="crimshield" />
+    
+    <property name="jar.file" value="${context}.jar" />
+    <property name="war.file" value="${context}.war" />
+    
+    
+   <path id="compile.classpath">
+      <fileset dir="${basedir}/web/WEB-INF/lib">
+         <include name="*.jar"/>
+      </fileset>
+      
+      <fileset dir="${basedir}/classpath">
+         <include name="**/*.jar"/>
+      </fileset>
+   </path>
+    
+    <target name="clean">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="**/*.*"/>
+            </fileset>
+        </delete>
+        
+        <delete dir="${build.dir}/">
+        </delete>
+        
+    </target>
+
+    
+    <target name="prepare" depends="clean">
+      <mkdir dir="${build.dir}" />
+      <mkdir dir="${war.dir}" />
+    </target>
+   
+    
+    <target name="compile" depends="prepare">
+    <!--<target name="compile" depends="prepare">-->
+        <javac debug="true" includes="**/*.java" optimize="false" srcdir="${src}" destdir="${build.dir}" source="1.5" target="1.5">
+            <classpath refid="compile.classpath" />
+            <classpath>
+              <fileset dir="${classpath}">
+                <include name="*.jar"/>
+              </fileset>
+              <fileset dir="${classpath2}">
+                <include name="*.jar"/>
+              </fileset>
+            </classpath>
+        </javac>
+        
+        <copy todir="${build.dir}">
+            <fileset dir="${src}">
+                <include name="**/*.hbm.xml"/>
+            </fileset>
+       </copy>
+    </target>
+    
+    <target name="jar" depends="compile">
+        <jar basedir="${build.dir}\com" destfile="${build.dir}\${jar.file}" />
+    </target>
+    
+    <target name="prepare-war" depends="jar">
+        <copy todir="${war.dir}">
+            <fileset dir="${basedir}\web">
+                <include name="**/*.*"/>
+            </fileset>
+       </copy>
+       
+       <copy todir="${war.dir}\WEB-INF\classes">
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+                <include name="**/*.hbm.xml"/>
+            </fileset>
+       </copy>
+       
+    </target>
+    
+    
+    <target name="war" depends="prepare-war" >
+        <war destfile="${build.dir}/${war.file}" webxml="${war.dir}/WEB-INF/web.xml">
+            <fileset dir="${war.dir}" includes="index.jsp"/>
+            <fileset dir="${war.dir}" includes="css/*.css"/>
+            <fileset dir="${war.dir}" includes="images/**/*.gif, images/**/*.jpg, images/**/*.png"/>
+            
+            <fileset dir="${war.dir}" includes="WEB-INF/jsp/**/*.jsp"/>
+            
+            <fileset dir="${war.dir}" includes="js/**/*.*"/>
+            <lib dir="${war.dir}/WEB-INF/lib">
+              <include name="**/*.jar"/>
+            </lib>
+
+            <classes dir="${war.dir}/WEB-INF/classes">
+              <include name="**/*.xml"/>
+              <include name="**/*.properties"/>
+              <include name="**/*.class"/>
+              <include name="**/*hbm.xml"/>
+            </classes>
+
+             <metainf dir="${war.dir}/META-INF">
+              <include name="**/*.xml"/>
+             </metainf>
+
+             <webinf dir="${war.dir}/WEB-INF">
+              
+              <include name="**/*.wsdd"/>
+              <include name="**/*.tld"/>
+              <include name="**/*.xml"/>
+              <include name="**/*.xml"/>
+              <include name="**/*.properties"/>
+              
+              <exclude name="web.xml"/>
+              <exclude name="**/*hbm.xml"/>
+              
+              
+            </webinf>
+        </war>
+  </target>
+  
+  
+  <target name="delete-context">
+      <delete>
+            <fileset dir="${basedir}\web\META-INF">
+                <include name="context.xml"/>
+            </fileset>
+            
+             <fileset dir="${basedir}\web\WEB-INF">
+                <include name="web.xml"/>
+            </fileset>
+            
+             <fileset dir="${basedir}\web\WEB-INF">
+                <include name="log4j.properties"/>
+            </fileset>
+            
+            <fileset dir="${basedir}\web\WEB-INF\classes">
+                <include name="config.properties"/>
+            </fileset>
+        </delete>
+  </target>
+  
+  <target name="copy-aaa-context" depends="delete-context">
+      <copy todir="${basedir}\web\META-INF">
+            <fileset dir="${basedir}\src\context\aaa\">
+                <include name="context.xml"/>
+            </fileset>
+       </copy>
+       
+        <copy todir="${basedir}\web\WEB-INF">
+            <fileset dir="${basedir}\src\context\aaa\">
+                <include name="web.xml"/>
+                <include name="log4j.properties"/>
+            </fileset>
+       </copy>
+       
+       <copy todir="${basedir}\web\WEB-INF\classes">
+            <fileset dir="${basedir}\src\context\aaa\">
+                <include name="config.properties"/>
+            </fileset>
+       </copy>
+       
+  </target>
+  
+  <target name="deploy-local-aaa" depends="copy-aaa-context,deploy-local" >
+  </target>
+  
+   <target name="copy-isc-context" depends="delete-context">
+      <copy todir="${basedir}\web\META-INF">
+            <fileset dir="${basedir}\src\context\isc\">
+                <include name="context.xml"/>
+            </fileset>
+       </copy>
+       
+       <copy todir="${basedir}\web\WEB-INF">
+            <fileset dir="${basedir}\src\context\isc\">
+                <include name="web.xml"/>
+                <include name="log4j.properties"/>
+            </fileset>
+       </copy>
+       
+       <copy todir="${basedir}\web\WEB-INF\classes">
+            <fileset dir="${basedir}\src\context\isc\">
+                <include name="config.properties"/>
+            </fileset>
+       </copy>
+       
+  </target>
+  
+  <target name="deploy-local-isc" depends="copy-isc-context,deploy-local" >
+  </target>
+  
+  <target name="copy-csapp-context" depends="delete-context">
+      <copy todir="${basedir}\web\META-INF">
+            <fileset dir="${basedir}\src\context\csapp\">
+                <include name="context.xml"/>
+            </fileset>
+       </copy>
+       
+        <copy todir="${basedir}\web\WEB-INF">
+            <fileset dir="${basedir}\src\context\csapp\">
+                <include name="web.xml"/>
+                <include name="log4j.properties"/>
+            </fileset>
+       </copy>
+       
+       <copy todir="${basedir}\web\WEB-INF\classes">
+            <fileset dir="${basedir}\src\context\csapp\">
+                <include name="config.properties"/>
+            </fileset>
+       </copy>
+       
+  </target>
+  
+  <target name="deploy-local-csapp" depends="copy-csapp-context,deploy-local" >
+  </target>
+  
+    <target name="copy-crimshield-context" depends="delete-context">
+      <copy todir="${basedir}\web\META-INF">
+            <fileset dir="${basedir}\src\context\crimshield\">
+                <include name="context.xml"/>
+            </fileset>
+       </copy>
+       
+        <copy todir="${basedir}\web\WEB-INF">
+            <fileset dir="${basedir}\src\context\crimshield\">
+                <include name="web.xml"/>
+                <include name="log4j.properties"/>
+            </fileset>
+       </copy>
+       
+       <copy todir="${basedir}\web\WEB-INF\classes">
+            <fileset dir="${basedir}\src\context\crimshield\">
+                <include name="config.properties"/>
+            </fileset>
+       </copy>
+       
+  </target>
+  
+  <target name="deploy-local-crimshield" depends="copy-crimshield-context,deploy-local" >
+  </target>
+  
+  <target name="deploy-local" depends="deploy-local-prep, war" >
+      <copy todir="${local.tomcat.webapps}">
+            <fileset dir="${basedir}\build">
+                <include name="${war.file}"/>
+            </fileset>
+       </copy>
+  </target>
+  
+  <target name="deploy-local-prep" >
+      <delete>
+            <fileset dir="${local.tomcat.webapps}">
+                <include name="${war.file}"/>
+            </fileset>
+        </delete>
+        
+        <delete dir="${local.tomcat.webapps}/${context}">
+        </delete>
+  </target>
+
+    <target name="clean-jsp" >
+           <delete>
+                <fileset dir="${basedir}\src\jsp">
+                    <include name="**/*.*"/>
+                </fileset>
+            </delete>
+
+            <delete dir="${basedir}\src\jsp">
+            </delete>
+    </target>
+
+    <target name="prepare-jsp" depends="clean-jsp">
+          <mkdir dir="${basedir}\src\jsp" />
+    </target>
+    
+    <!-- this target will automatically create an html file with
+    an incremented build number and version number-->
+    <target name="increment-build" >
+        
+        <propertyfile
+            file="${basedir}\web\WEB-INF\classes\version.properties" comment="Build version info">
+            <entry key="buildDate" type="date" value="now" pattern="MM/dd/yyyy HH:mm:ss"/>
+            <entry key="buildNum" default="0" type="int" operation="+" value="1" pattern="00"/>
+        </propertyfile>
+        <copy file="${resources.dir}\MessageResources.properties" tofile="${basedir}\web\WEB-INF\classes\resources\MessageResources.properties" overwrite="true" />
+        <replace
+            file="${basedir}\web\WEB-INF\classes\resources\MessageResources.properties"
+            value="value not found in version.properties"
+            propertyFile="${basedir}\web\WEB-INF\classes\version.properties">
+            <replacefilter
+                token="@buildDate@"
+                property="buildDate"/>
+            <replacefilter
+                token="@buildNum@"
+                property="buildNum"/>
+        </replace>
+    </target>
+    
+    
+    <target name="compile-selected-files-in-java">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="com/aaa/reports/itext/*.class"/>
+            </fileset>
+        </delete>
+        <!-- TODO decide on and define some value fo ${build.classes.dir} -->
+        <mkdir dir="${build.dir}/com/aaa/reports/itext"/>
+        <javac destdir="${build.dir}" 
+            includes="com/aaa/reports/itext/MonthlyClientInvoice.java" 
+            source="1.5" 
+            srcdir="${src}">
+           <classpath>
+                <pathelement path="${build.dir}"/>
+                
+                <fileset dir="${local.tomcat.classpath}">
+                    <include name="*.jar"/>
+                </fileset>
+ 
+                <fileset dir="${local.tomcat.classpath}/">
+                    <include name="servlet*.jar"/>
+                </fileset>
+ 
+                <fileset dir="${local.tomcat.classpath}/">
+                    <include name="commons*.jar"/>
+                </fileset>
+ 
+
+                <fileset dir="${basedir}\web\WEB-INF\lib">
+                    <include name="*.jar"/>
+                </fileset>
+                
+                 <fileset dir="${build.dir}/com/aaa/reports/itext">
+                    <include name="MonthlyClientInvoice.class"/>
+                    <include name="InvoiceEndPageEvent.class"/>
+                </fileset>
+                
+            </classpath>
+        </javac>
+    </target>
+    
+    <target name="test-pdf-writer" depends="compile-selected-files-in-java">
+        <java classname="com.cspro.reports.itext.MonthlyClientInvoice">
+            <classpath>
+                <pathelement path="${build.dir}"/>
+                
+                <fileset dir="${local.tomcat.classpath}">
+                    <include name="*.jar"/>
+                </fileset>
+ 
+                <fileset dir="${local.tomcat.classpath}/">
+                    <include name="servlet*.jar"/>
+                </fileset>
+ 
+                <fileset dir="${local.tomcat.classpath}/">
+                    <include name="commons*.jar"/>
+                </fileset>
+ 
+
+                <fileset dir="${basedir}\web\WEB-INF\lib">
+                    <include name="*.jar"/>
+                </fileset>
+                
+                 <fileset dir="${build.dir}/com/aaa/reports/itext">
+                    <include name="MonthlyClientInvoice.class"/>
+                    <include name="InvoiceEndPageEvent.class"/>
+                </fileset>
+                
+ 
+            </classpath>
+        </java>
+    </target>
+    
+</project>

@@ -1,0 +1,492 @@
+
+body{
+    background-color:#f7f7f7;
+    font-size:12px;
+    font-family:Arial, Helvetica, sans-serif;
+    
+}
+
+.header{
+    background-color:#114070;
+    background-repeat:repeat-x;
+    height:45px;
+    color:#FFF;
+    padding-left:10px;
+    font-weight:bold;
+}
+
+.header a{
+    background-color:#114070;
+    background-repeat:repeat-x;
+    height:45px;
+    color:#FFF;
+    padding-left:10px;
+    font-weight:bold;
+}
+
+.headerBox{
+    background-color:#215F92;
+    background-repeat:repeat-x;
+    height:25px;
+    color:#FFF;
+    padding-left:10px;
+    font-weight:bold;
+    font-size:13px;
+    
+}
+
+.headerBox2{
+    background-color:#EAEAEA;
+    background-repeat:repeat-x;
+    height:25px;
+    color:#333;
+    font-weight:bold;
+    padding-left:10px;
+    
+}
+
+.errorHeader{
+    background-color:#215F92;
+    background-repeat:repeat-x;
+    height:25px;
+    color:#ea2800;
+    font-weight:bold;
+    padding-left:10px;
+}
+
+.header a:hover{
+    background: #FFF;
+    color:#000;
+    text-decoration:underline;
+    list-style:none;
+}
+
+
+
+.header a{
+    background:#114070;
+    color:#ffffff;
+    display:block;
+    font-weight:normal;
+    line-height:35px;
+    margin:0px;
+    padding:0px 15px;
+    text-align:center;
+    text-decoration:none;
+    list-style:none;
+}
+
+.tabBox{
+    background-color:#215F92;
+    height:25px;
+    color:#FFF;
+    font-weight:bold;
+    padding-left:10px;
+    text-align:left;
+    vertical-align:middle
+    
+}
+
+.menu{
+    background-color:#3c78b5;
+    background-repeat:repeat-x;
+    height:35px;
+    color:#FFF;
+    list-style:none;
+    text-decoration:none;
+    text-align:left;
+    font-family:Tahoma, Geneva, sans-serif;
+    color:#09C;
+    font-size:13px;
+}
+
+.menu ul{
+    background:#3c78b5;
+    height:35px;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.menu li{
+    float:left;
+    padding:0px;
+    list-style:none;
+}
+.menu li a{
+    background:#3c78b5;
+    color:#ffffff;
+    display:block;
+    font-weight:normal;
+    line-height:35px;
+    margin:0px;
+    padding:0px 10px;
+    text-align:left;
+    text-decoration:none;
+    list-style:none;
+}
+.menu li a:hover, .menu ul li:hover a{
+    background:#F4F4F4;
+    color:#000;
+    text-decoration:underline;
+    list-style:none;
+    clear:left;
+    height:35px;
+}
+.menu li ul{
+    background:#3c78b5;
+    display:none;
+    height:35px;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    position:absolute;
+    width:170px;
+    z-index:200;
+    list-style:none;
+    /*top:1em;
+    /*left:0;*/
+}
+.menu li:hover ul{
+    display:block;
+    
+}
+.menu li:visited{
+    display:block;
+    
+}
+.menu li li {
+    display:block;
+    float:none;
+    margin:0px;
+    padding:0px;
+    width:170px;
+    list-style:none;
+}
+.menu li:hover li a{
+    background:#F4F4F4;
+    list-style:none;
+    text-decoration:none;
+    line-height:35px;
+    
+}
+.menu li ul a{
+    display:block;
+    height:35px;
+    font-size:12px;
+    font-style:normal;
+    margin:0px;
+    padding:0px 10px 0px 15px;
+    text-align:left;
+    list-style:none;
+    border: 1px solid #E1E2E3;
+}
+.menu li ul a:hover{
+    background:#3c78b5;
+    border:0px;
+    border: 1px solid #3c78b5;
+    text-decoration:none;
+    list-style:none;
+    height:35px;
+    padding:0px 10px 0px 15px;
+    
+}
+/**/	/**/	/**/	/**/	/**/	/**/	
+/**/	/**/	/**/	/**/	/**/	/**/	
+/**/	/**/	/**/	/**/	/**/	/**/	
+.menu ul li ul li:hover ul{
+    visibility:visible;
+    position:relative;top:-37px;
+    overflow:visible;
+}
+
+.menu ul li ul li ul li:hover a{
+    background:#3c78b5;
+    border:1px solid #3c78b5;
+    color:#fff;
+    text-decoration:none;
+    list-style:none;
+}
+
+.menu ul li ul li ul{
+    background:#FFF;
+    visibility:hidden;
+    height:0;
+    overflow:hidden;
+    top:0;
+    left:170px;
+}
+/**/	/**/	/**/	/**/	/**/	
+/**/	/**/	/**/	/**/	/**/				
+/**/	/**/	/**/	/**/	/**/	
+.menu p{
+    clear:left;
+}
+
+.menuHover:hover a{
+    color:#000;
+    background-color:#FFF;			
+    text-decoration:underline;
+    list-style:none;
+    height:35px;
+    
+}
+.nameHover:hover a{
+    background-color:#069;	
+    color:#fff;
+    text-decoration:underline;
+    list-style:none;
+    display:block;
+}
+
+/* Menu style no 2*/
+
+.menu2 {
+    
+    background-color:#114070;
+    background-repeat:repeat-x;
+    height:30px;
+    color:#FFF;
+    list-style:none;
+    text-decoration:none;
+    font-size:12px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+.menu2 ul{
+    background-color:#114070;
+    
+    height:30px;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.menu2 li{
+    float:left;
+    padding:0px;
+    list-style:none;
+}
+
+.menu2 li a{
+    background:#114070;
+    color:#ffffff;
+    display:block;
+    font-weight:normal;
+    line-height:30px;
+    margin:0px;
+    padding:0px 15px;
+    text-align:center;
+    text-decoration:none;
+    list-style:none;
+}
+
+.menu2 li a:hover, .menu2 ul li:hover a{
+    background: #FFF;
+    color:#000;
+    text-decoration:underline;
+    list-style:none;
+    
+}
+
+.menu2 li ul{
+    background:#114070;
+    display:none;
+    height:auto;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    position:absolute;
+    width:225px;
+    z-index:200;
+    list-style:none;
+    /*top:1em;
+    /*left:0;*/
+}
+
+.menu2 li:hover ul{
+    display:block;
+    
+}
+
+.menu2 li li {
+    display:block;
+    float:none;
+    margin:0px;
+    padding:0px;
+    width:225px;
+    list-style:none;
+}
+
+.menu2 li:hover li a{
+    background:#FFF;
+    list-style:none;
+    text-decoration:none;
+    
+}
+
+.menu2 li ul a{
+    display:block;
+    height:35px;
+    font-size:12px;
+    font-style:normal;
+    margin:0px;
+    padding:0px 10px 0px 15px;
+    text-align:left;
+    list-style:none;
+    border-bottom: 1px solid #E1E2E3;
+    border-left: 1px solid #E1E2E3;
+    border-right: 1px solid #E1E2E3;
+}
+
+.menu2 li ul a:hover, .menu2 li ul li:hover a{
+    background:#3c78b5;
+    border:0px;
+    color:#FFF;
+    text-decoration:none;
+    list-style:none;
+}
+
+.menu2 p{
+    clear:left;
+}
+
+
+.menuHover2:hover a{
+    color:#000;
+    background-color:#FFF;			
+    text-decoration:underline;
+    list-style:none;
+    height:35px;
+}
+
+.nameHover2:hover a{
+    background-color:#069;	
+    color:#fff;
+    text-decoration:underline;
+    list-style:none;
+}
+
+.componentStyle{
+    font-size:12px;
+    font-family:Arial, Helvetica, sans-serif;
+    border:1px solid #D2D2D2;
+}
+
+.divStyle{
+    font-size:12px;
+    font-family:Tahoma, Geneva,Arial, Helvetica, sans-serif;
+    text-decoration:none;
+    font-style:normal;
+    font-weight:normal;
+    
+}
+
+.tableInputs td{
+    padding-left:10px;
+}
+
+
+.tableStyle{
+    
+    border: 1px solid #C3C3C3;
+    border-collapse: collapse;
+    text-align:left;
+    padding-left:10px;
+}
+
+.tableStyle th {
+    background-color:#CCC;
+    border:1px #666 solid;
+    padding-left:10px;
+}
+
+.tableStyle td {
+    border:1px #666 solid;
+    padding:2px 5px 1px 5px;
+    vertical-align:top;
+    
+}
+
+.tableStyle tr:hover {
+    
+    background-color:#D8EDF5;
+}
+
+
+.tableStyle	td a {
+    color:#09C;
+    text-decoration: none;
+}
+
+
+.tableStyleHighlight_td td a:hover {
+    color:#C60;
+    text-decoration: none;
+    
+}
+
+.blue_links{
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:11px;
+    text-decoration:none;
+    color:#333;
+    border:0pz;
+}
+
+.blue_links a {
+    font-family:Tahoma, Geneva, sans-serif;
+    color:#09C;
+    font-size:11px;
+    text-decoration:none;
+    cursor:hand;
+}
+
+.blue_links a:hover {
+    font-family:Tahoma, Geneva, sans-serif;
+    color:#C60;
+    font-size:11px;
+    text-decoration:none;
+    cursor:hand;
+}
+
+.content_title_bold_17{
+    text-align:left;
+    font-family:Tahoma, Geneva, sans-serif;
+    color:#06C;
+    font-size:17px;
+    text-decoration:none;
+    padding:10px 0px 0px 25px;
+    font-weight:bold;
+}
+
+.arrow li:visited a{
+    background:#3F3;
+}
+.ticketButton{
+    background:url(../images/acceptTicketButton.jpg);
+    background-repeat:no-repeat;
+    background-position:center;
+    text-align:center;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:13px;
+    font-weight:bold;
+    height:70px;
+    width:140px;
+    color:black;
+}
+.ticketButton:hover{
+    background:url(../images/acceptTicketButtonHover.jpg);
+    background-repeat:no-repeat;
+    background-position:center;
+    height:70px;
+    width:140px;
+    cursor:hand;
+    text-align:center;
+    font-family:Tahoma, Geneva, sans-serif;
+    font-size:13px;
+    font-weight:bold;
+    color:black;
+}
+
+

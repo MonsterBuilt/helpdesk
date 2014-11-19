@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.TicketHeader" table="ticket_header">
+    <id name="ticketHeaderId" type="java.lang.Integer">
+      <column name="ticket_header_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="ticketSubject" type="string">
+      <column length="45" name="ticket_subject"/>
+    </property>
+    <property name="ticketSummary" type="string">
+      <column length="512" name="ticket_summary"/>
+    </property>
+    <property name="ticketRequestDateTime" type="timestamp">
+      <column length="19" name="ticket_request_date_time" not-null="true"/>
+    </property>
+    <property name="requestorUsername" type="string">
+      <column length="45" name="requestor_username" not-null="true"/>
+    </property>
+    <property name="requesteeUsername" type="string">
+      <column length="45" name="requestee_username" not-null="true"/>
+    </property>
+    <property name="priorityId" type="string">
+      <column length="45" name="priority_id" not-null="true"/>
+    </property>
+    <property name="tickectStatusId" type="int">
+      <column name="tickect_status_id" not-null="true"/>
+    </property>
+    <property name="isOpen" type="int">
+      <column name="is_open" not-null="true"/>
+    </property>
+    <property name="dateClosed" type="timestamp">
+      <column length="19" name="date_closed"/>
+    </property>
+    <property name="dateReopended" type="timestamp">
+      <column length="19" name="date_reopended"/>
+    </property>
+  </class>
+</hibernate-mapping>

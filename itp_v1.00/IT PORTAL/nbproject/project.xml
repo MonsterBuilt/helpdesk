@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.ant.freeform</type>
+    <configuration>
+        <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
+            <!-- Do not use Project Properties customizer when editing this file manually. -->
+            <name>IT PORTAL</name>
+            <properties/>
+            <folders>
+                <source-folder>
+                    <label>java</label>
+                    <type>java</type>
+                    <location>src/java</location>
+                </source-folder>
+                <source-folder>
+                    <label>web</label>
+                    <type>doc_root</type>
+                    <location>web</location>
+                </source-folder>
+                <source-folder>
+                    <label>WEB-INF</label>
+                    <type>web_inf</type>
+                    <location>web/WEB-INF</location>
+                </source-folder>
+            </folders>
+            <ide-actions>
+                <action name="build">
+                    <target>compile</target>
+                </action>
+                <action name="clean">
+                    <target>clean</target>
+                </action>
+                <action name="redeploy">
+                    <target>deploy-local</target>
+                </action>
+                <action name="rebuild">
+                    <target>clean</target>
+                    <target>compile</target>
+                </action>
+                <action name="debug">
+                    <script>nbproject/ide-targets.xml</script>
+                    <target>debug-nb</target>
+                </action>
+            </ide-actions>
+            <view>
+                <items>
+                    <source-folder style="tree">
+                        <label>Web Pages</label>
+                        <location>web</location>
+                    </source-folder>   
+                    <source-folder style="packages">
+                        <label>java</label>
+                        <location>src/java</location>
+                    </source-folder>
+                    <source-file>
+                        <location>build.xml</location>
+                    </source-file>
+                </items>
+                <context-menu>
+                    <ide-action name="build"/>
+                    <ide-action name="clean"/>
+                    <ide-action name="redeploy"/>
+                    <ide-action name="rebuild"/>
+                    <ide-action name="debug"/>
+                </context-menu>
+            </view>
+            <subprojects/>
+        </general-data>
+        <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/1">
+            <compilation-unit>
+                <package-root>src/java</package-root>
+                <classpath mode="compile">web/WEB-INF/lib/antlr.jar;web/WEB-INF/lib/cglib-nodep-2.1_3.jar;web/WEB-INF/lib/commons-beanutils.jar;web/WEB-INF/lib/commons-collections.jar;web/WEB-INF/lib/commons-dbcp.jar;web/WEB-INF/lib/commons-digester.jar;web/WEB-INF/lib/commons-fileupload.jar;web/WEB-INF/lib/commons-logging.jar;web/WEB-INF/lib/commons-pool.jar;web/WEB-INF/lib/commons-validator.jar;web/WEB-INF/lib/dom4j-1.6.jar;web/WEB-INF/lib/ehcache-1.1.jar;web/WEB-INF/lib/hibernate3.jar;web/WEB-INF/lib/jakarta-oro.jar;web/WEB-INF/lib/jta.jar;web/WEB-INF/lib/log4j-1.2.13.jar;web/WEB-INF/lib/mysql-connector-java-3.1.12-bin.jar;web/WEB-INF/lib/ojdbc14.jar;web/WEB-INF/lib/spring.jar;web/WEB-INF/lib/struts.jar;web/WEB-INF/lib/xpp3-1.1.3.4d_b4_min.jar;web/WEB-INF/lib/xstream-1.1.3.jar;classpath/servlet-api.jar;web/WEB-INF/lib/itext-1.4.5.jar;web/WEB-INF/lib/ajaxtags-1.2-beta3.jar;web/WEB-INF/lib/mail.jar;web/WEB-INF/lib/anet.jar;web/WEB-INF/lib/axis-ant.jar;web/WEB-INF/lib/axis.jar;web/WEB-INF/lib/jaxrpc.jar;web/WEB-INF/lib/saaj.jar;web/WEB-INF/lib/wsdl4j-1.5.1.jar;web/WEB-INF/lib/Tidy.jar;web/WEB-INF/lib/serializer.jar;web/WEB-INF/lib/xalan.jar;web/WEB-INF/lib/xercesImpl.jar;web/WEB-INF/lib/xsltc.jar;web/WEB-INF/lib/xml-apis.jar;web/WEB-INF/lib/activation.jar;web/WEB-INF/lib/ajaxtags-1.2-beta3.jar;web/WEB-INF/lib/anet.jar;web/WEB-INF/lib/antlr.jar;web/WEB-INF/lib/avalon-framework-4.2.0.jar;web/WEB-INF/lib/axis-ant.jar;web/WEB-INF/lib/axis.jar;web/WEB-INF/lib/batik-all-1.6.jar;web/WEB-INF/lib/cglib-nodep-2.1_3.jar;web/WEB-INF/lib/commons-beanutils.jar;web/WEB-INF/lib/commons-collections.jar;web/WEB-INF/lib/commons-dbcp.jar;web/WEB-INF/lib/commons-digester.jar;web/WEB-INF/lib/commons-discovery-0.2.jar;web/WEB-INF/lib/commons-fileupload.jar;web/WEB-INF/lib/commons-io-1.1.jar;web/WEB-INF/lib/commons-lang-2.1.jar;web/WEB-INF/lib/commons-logging.jar;web/WEB-INF/lib/commons-pool.jar;web/WEB-INF/lib/commons-validator.jar;web/WEB-INF/lib/dom4j-1.6.jar;web/WEB-INF/lib/ehcache-1.1.jar;web/WEB-INF/lib/hibernate3.jar;web/WEB-INF/lib/itext-1.4.5.jar;web/WEB-INF/lib/jakarta-oro.jar;web/WEB-INF/lib/jaxrpc.jar;web/WEB-INF/lib/jta.jar;web/WEB-INF/lib/log4j-1.2.13.jar;web/WEB-INF/lib/mail.jar;web/WEB-INF/lib/mysql-connector-java-3.1.12-bin.jar;web/WEB-INF/lib/ojdbc14.jar;web/WEB-INF/lib/saaj.jar;web/WEB-INF/lib/serializer-2.7.0.jar;web/WEB-INF/lib/spring.jar;web/WEB-INF/lib/standard-1.1.2.jar;web/WEB-INF/lib/struts.jar;web/WEB-INF/lib/Tidy.jar;web/WEB-INF/lib/wsdl4j-1.5.1.jar;web/WEB-INF/lib/xalan-2.7.0.jar;web/WEB-INF/lib/xercesImpl-2.7.1.jar;web/WEB-INF/lib/xml-apis-1.3.02.jar;web/WEB-INF/lib/xmlgraphics-commons-1.1.jar;web/WEB-INF/lib/xpp3-1.1.3.4d_b4_min.jar;web/WEB-INF/lib/xsltc.jar;web/WEB-INF/lib/xstream-1.1.3.jar;web/WEB-INF/lib/fop.jar;web/WEB-INF/lib/fop.jar;classpath/flying-saucer/core-renderer.jar;classpath/xsl-fop/Tidy.jar;web/WEB-INF/lib/commons-httpclient-3.1.jar;web/WEB-INF/lib/ip2location.jar;web/WEB-INF/lib/pja.jar;web/WEB-INF/lib/pdflib.jar</classpath>
+                <source-level>1.5</source-level>
+            </compilation-unit>
+        </java-data>
+        <web-data xmlns="http://www.netbeans.org/ns/freeform-project-web/1">
+            <web-module>
+                <doc-root>web</doc-root>
+                <context-path/>
+                <j2ee-spec-level>1.4</j2ee-spec-level>
+            </web-module>
+        </web-data>
+    </configuration>
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2011 1:34:28 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class catalog="itp" lazy="false" name="com.itp.dao.entity.Component" table="component">
+    <id name="componentId" type="java.lang.Integer">
+      <column name="component_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="componentName" type="string">
+      <column length="128" name="component_name"/>
+    </property>
+    <property name="componentDescription" type="string">
+      <column name="component_description"/>
+    </property>
+    <property name="componentLeadId" type="int">
+      <column name="component_lead_id" not-null="true"/>
+    </property>
+    <set inverse="true" name="notes">
+      <key>
+        <column name="component_id" not-null="true"/>
+      </key>
+      <one-to-many class="com.itp.dao.entity.Note"/>
+    </set>
+  </class>
+</hibernate-mapping>
